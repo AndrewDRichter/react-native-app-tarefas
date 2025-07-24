@@ -1,24 +1,55 @@
 import { FontAwesome } from "@expo/vector-icons";
-import React from "react";
+import React, { useState } from "react";
 import {
+  FlatList,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View
 } from "react-native";
+import Tarefa from './src/tarefa';
+
 
 export default function App() {
+  const [tarefa, setTarefa] = useState('');
+
+  const [list, setList] = useState([
+    {
+      key: '1',
+      item: 'Comprar pao'
+    },
+    {
+      key: '2',
+      item: 'Estudar React Native'
+    },
+  ])
+
+  function handleAdd() {
+    alert(tarefa)
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tarefas</Text>
       <View style={styles.tarefaContainer}>
-        <TextInput style={styles.input} placeholder="Descreva a tarefa"></TextInput>
-        <TouchableOpacity>
-          <FontAwesome name="plus" size={20} />
+        <TextInput
+          style={styles.input}
+          placeholder="Descreva a tarefa"
+          value={tarefa}
+          onChangeText={(text) => setTarefa(text)}
+        ></TextInput>
+        <TouchableOpacity style={styles.submitBtn} onPress={handleAdd}>
+          <FontAwesome name="plus" size={20} color={'#FFF'} />
         </TouchableOpacity>
       </View>
+
+      <FlatList
+        data={list}
+        keyExtractor={(item) => item.key}
+        renderItem={({ item }) => <Tarefa data={item} />}
+      />
+
     </View>
   )
 }
@@ -31,22 +62,34 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 32,
+    fontSize: 24,
     color: '#FFF',
     marginTop: '5%',
     paddingStart: '5%',
-    marginBottom: 20,
-  },
-  input: {
-    backgroundColor: '#121212',
-    color: '#FFF',
-    width: '60%',
+    marginBottom: 12,
   },
   tarefaContainer: {
-    backgroundColor: '#FFF',
-    height: 500,
     flexDirection: 'row',
+    width: '100%',
+    height: 44,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+    marginBottom: 22,
+  },
+  input: {
+    width: '75%',
+    backgroundColor: '#FFF',
+    height: 44,
+    borderRadius: 4,
+    paddingHorizontal: 8,
+  },
+  submitBtn: {
+    width: '15%',
+    height: 44,
+    backgroundColor: '#73f7ff',
+    marginLeft: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+  },
 })
