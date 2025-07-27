@@ -48,6 +48,7 @@ export default function App() {
         data={list}
         keyExtractor={(item) => item.key}
         renderItem={({ item }) => <Tarefa data={item} />}
+        style={styles.list}
       />
 
     </View>
@@ -92,4 +93,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 4,
   },
+  list: {
+    flex: 1,
+    backgroundColor: '#FFF',
+    paddingStart: '4%',
+    paddingEnd: '4%',
+  }
 })
